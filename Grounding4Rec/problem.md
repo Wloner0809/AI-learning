@@ -50,3 +50,13 @@
 > 这里先检查一下`torch.cuda.is_available()`是否为True，如果是False的话说明Pytorch可能装的cpu版本的。(一定要注意去官网上按照对应版本的cuda安装pytorch)。我这里出错是因为先装了accelerate库，同时他给装了torch，但是为cpu版本。
 >
 > 其次看看gpu大小是否足够。
+
+### Q7
+
+**torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 58.00 MiB (GPU 0; 23.70 GiB total capacity; 20.55 GiB already allocated; 40.56 MiB free; 21.96 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation. See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF**
+
+> 调小batch_size即可
+>
+> 这里因为是单卡跑的，如果batch size设置太大就会超显存
+>
+> 经验：**多试几次……**
