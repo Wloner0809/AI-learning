@@ -47,6 +47,8 @@
 
 **ValueError: Some modules are dispatched on the CPU or the disk. Make sure you have enough GPU RAM to fit the quantized model. If you want to dispatch the model on the CPU or the disk while keeping these modules in 32-bit, you need to set `load_in_8bit_fp32_cpu_offload=True` and pass a custom `device_map` to `from_pretrained`. Check https://huggingface.co/docs/transformers/main/en/main_classes/quantization#offload-between-cpu-and-gpu for more details.**
 
+### S5:
+
 > 这里先检查一下`torch.cuda.is_available()`是否为True，如果是False的话说明Pytorch可能装的cpu版本的。(一定要注意去官网上按照对应版本的cuda安装pytorch)。我这里出错是因为先装了accelerate库，同时他给装了torch，但是为cpu版本。
 >
 > 其次看看gpu大小是否足够。
@@ -62,3 +64,13 @@
 > 这里因为是单卡跑的，如果batch size设置太大就会超显存
 >
 > 经验：**多试几次……**
+
+### Q7:
+
+**RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument index in method wrapper__index_select)**
+
+### S7:
+
+> 根据报错行，检查是否有变量不在gpu上(即有没有.to(device))
+>
+> 这个纯属是因为经验不足了，之前没跑过深度学习的代码……会不了一点cuda、gpu
